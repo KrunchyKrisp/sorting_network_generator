@@ -1,5 +1,6 @@
+use std::time::Instant;
+
 fn main() {
-    println!("Hello, world!");
     network_generator(5, 9, true);
 }
 
@@ -61,6 +62,7 @@ fn network_tester(n: usize, network: & Vec<Vec<usize>>) -> bool {
 }
 
 fn network_generator(n: usize, mut depth: usize, pair_wise: bool) -> Vec<Vec<usize>> {
+    let now = Instant::now();
     let (mut network, mut end);
     let (mut counter, mut m_counter): (usize, usize) = (0, 0);
 
@@ -109,6 +111,7 @@ fn network_generator(n: usize, mut depth: usize, pair_wise: bool) -> Vec<Vec<usi
                 println!("Network Found For n = {}: {:?}", n, network);
                 println!("At depth {}", depth);
                 println!("At Iteration {}00M + {}", m_counter, counter);
+                println!("Total Time: {:?}", now.elapsed());
                 return network;
             }
             increase(&mut network, depth - 1, n);
