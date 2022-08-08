@@ -1,8 +1,9 @@
 use std::time::Instant;
 
 fn main() {
-    let starting = Some((Vec::from([[0, 1], [2, 3], [4, 5], [0, 1], [4, 5], [0, 2], [0, 5], [3, 5], [1, 4], [1, 3], [0, 5], [2, 3]]), 1380));
-    network_generator::<6>(12, true, starting);
+    //let starting = Some((Vec::from([[0, 1], [2, 3], [4, 5], [0, 1], [4, 5], [0, 2], [0, 5], [3, 5], [1, 4], [1, 3], [0, 5], [2, 3]]), 1380));
+    let starting = None;
+    network_generator::<7>(16, true, starting);
 }
 
 fn execute_pair<const N: usize>(data: &mut [usize; N], left: usize, right: usize) {
@@ -96,6 +97,13 @@ fn network_generator<const N: usize>(mut depth: usize, pair_wise: bool, starting
                     }
                     j *= 2;
                 }
+                j = 2;
+                while i < depth && j < N {
+                    network[i][0] = 0;
+                    network[i][1] = j;
+                    j *= 2;
+                    i += 1;
+                }
             }
             while i < depth {
                 k = (k % 2) + 1;
@@ -107,9 +115,9 @@ fn network_generator<const N: usize>(mut depth: usize, pair_wise: bool, starting
         
         println!("Initial network at depth {}: {:?}", depth, network);
         loop {
-            if counter == 1_000_000 {
+            if counter == 100_000_000 {
                 m_counter += 1;
-                println!("Testing {}Mth: {:?}", m_counter, network);
+                println!("Testing {}00Mth: {:?}", m_counter, network);
                 println!("Total Time: {:?}", now.elapsed());
                 counter = 0;
             }
@@ -118,7 +126,7 @@ fn network_generator<const N: usize>(mut depth: usize, pair_wise: bool, starting
             if network_tester::<N>(& network) {
                 println!("Network Found For N = {}: {:?}", N, network);
                 println!("At depth {}", depth);
-                println!("At Iteration {}_{:0>6}", m_counter, counter);
+                println!("At Iteration {}00_{:0>6}", m_counter, counter);
                 println!("Total Time: {:?}", now.elapsed());
                 return network;
             }
