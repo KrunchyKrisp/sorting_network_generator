@@ -3,12 +3,12 @@ use num_format::{Locale, ToFormattedString};
 use hhmmss::Hhmmss;
 
 fn main() {
-    let starting = Some((Vec::from(
-        [[0, 1], [2, 3], [4, 5], [6, 7], [0, 2], [4, 6], [0, 4], [1, 3], [1, 2], [1, 3], [4, 5], [2, 5], [2, 6], [4, 6], [1, 2], [1, 3], [1, 2], [1, 3], [1, 2]]
-    ), 8812));
-    // let starting = None;
-    // network_generator::<6>(12, true, starting);
-    network_generator(8, 19, true, starting);
+
+
+
+
+
+    network_generator(6, 12, true, None);
 }
 
 fn execute_pair(data: &mut Vec<usize>, left: usize, right: usize) {
